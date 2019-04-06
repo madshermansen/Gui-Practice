@@ -42,13 +42,13 @@ def download(): #Download function
                     'preferredquality': '192',
                 }],
             }
-        elif QualityPick.get() == "Best Video Quality":
+        elif QualityPick.get() == "Best Video and Audio Quality":
             ydl_opts = {
-                'format': 'best'
+                'format': '(bestvideo[width>=1920]/bestvideo)+bestaudio/best'
             }
         elif QualityPick.get() == "MP4 1080p":
             ydl_opts = {
-                'format': "137"
+                'format': '137',
             }
         elif QualityPick.get() == "MP4 720p":
             ydl_opts = {
@@ -61,6 +61,7 @@ def download(): #Download function
         elif QualityPick.get() == "MP4 360p":
             ydl_opts = {
                 'format': "134"
+
             }
         else:
             ydl_opts = {}
@@ -83,7 +84,7 @@ Quality = Label(Downloader, text="", background="#222222", foreground="#ffffff")
 Quality.grid(column=0, row=1, sticky=W)
 
 QualityPick = Combobox(Downloader, width="30", background="#222222")
-QualityPick['values'] = ("Best Video Quality", "MP4 1080p", "MP4 720p", "MP4 480p", "MP4 360p", "M4A", "MP3", "WAV")
+QualityPick['values'] = ("Best Video and Audio Quality", "MP4 1080p", "MP4 720p", "MP4 480p", "MP4 360p", "M4A", "MP3", "WAV")
 QualityPick.current(0)
 QualityPick.grid(column=2, row=1, sticky=W)
 
