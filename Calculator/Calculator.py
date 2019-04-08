@@ -12,9 +12,14 @@ def ClearScreen():
 
 def EqualsSign():
     global operator
-    sumup = str(eval(operator))
-    Inputs.set(sumup)
-    operator = sumup
+    if eval(operator) >= 100000000000:
+        Inputs.set("Overflow")
+    elif eval(operator) <= -100000000000:
+        Inputs.set("Overflow")
+    else:
+        sumup = str(eval(operator))
+        Inputs.set(sumup)
+        operator = sumup
 
 Calculator = Tk()
 Calculator.title("Calculator")
