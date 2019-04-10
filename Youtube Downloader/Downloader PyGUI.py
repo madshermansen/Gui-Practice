@@ -91,7 +91,7 @@ layout = [
 
          ]
 
-window = sg.Window('Youtube Downloader').Layout(layout)
+window = sg.Window('Youtube Downloader+').Layout(layout)
 progress_bar = window.FindElement('progressbar')
 
 while True:
