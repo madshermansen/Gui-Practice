@@ -1,11 +1,9 @@
-from PySimpleGUI import *
 import PySimpleGUI as sg
-import time
+from tkinter import *
 
 def RedditBot():
 
     layout = [
-              [sg.Image(filename="Logo/Logo.png")],
               [sg.Text('Username', size=(15, 1)), sg.InputText('')],
               [sg.Text('Password', size=(15, 1)), sg.InputText('')],
               [sg.Text('Client ID', size=(15, 1)), sg.InputText('')],
@@ -16,6 +14,7 @@ def RedditBot():
     ]
 
     Login = sg.Window('RedditBot Login').Layout(layout)
+    Login.SetIcon(icon="Logo/Logo.ico")
 
 
     while True:
@@ -25,10 +24,12 @@ def RedditBot():
         if event == "Log In":
             Login.Hide()
             break
+    values = ['Hug_Bot13', 'ForThe1MAn', 'FaVK12dui1rgJw', '12IGnh1EMcmQdDb-A9FJN_gRGuc', 'Hug_Bot13 by /u/Rip2k16']
     return event, values;
 
 def Start():
     Bot = sg.Window("RedditBot").Layout(layout2)
+    Bot.SetIcon(icon="Logo/Logo.ico")
     while True:
         event, values = Bot.Read()
         if event is None or event == 'Exit':
@@ -36,6 +37,7 @@ def Start():
         if event == "Turn On":
             Bot.Hide()
             break
+    values = ['Hug_Bot13', 'ForThe1MAn', 'FaVK12dui1rgJw', '12IGnh1EMcmQdDb-A9FJN_gRGuc', 'Hug_Bot13 by /u/Rip2k16']
     return event, values;
 
     #values = ['Hug_Bot13', 'ForThe1MAn', 'FaVK12dui1rgJw', '12IGnh1EMcmQdDb-A9FJN_gRGuc', 'Hug_Bot13 by /u/Rip2k16']
