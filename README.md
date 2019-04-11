@@ -26,9 +26,24 @@ Steps for use
 
 - Press download to recieve all files.
 
+## Reddit Bot
+
+![Reddit Bot](https://github.com/KarlofKuwait/Gui-Practice/blob/master/Reddit%20Bot/Images%20of%20Program/Login.png?raw=true)
+![Reddit Bot](https://github.com/KarlofKuwait/Gui-Practice/blob/master/Reddit%20Bot/Images%20of%20Program/Subreddit.png?raw=true)
+![Reddit Bot](https://github.com/KarlofKuwait/Gui-Practice/blob/master/Reddit%20Bot/Images%20of%20Program/Reply.png?raw=true)
+
+Steps for use
+
+- Enter account details for reddit bot account
+
+- Enter subreddit and what messages to respond to
+
+- Start program
+
+NOTE: Some new reddit accounts without enough karma cannot put messages per 10min. If the program resets this is probably the reason why.
 
 ## Calculator
 
 ![Calculator](https://github.com/KarlofKuwait/Gui-Practice/blob/master/Calculator/Calculator.png?raw=true)
 
-Works like a calculator
+
