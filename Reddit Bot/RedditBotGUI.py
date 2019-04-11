@@ -24,7 +24,6 @@ def RedditBot():
         if event == "Log In":
             Login.Hide()
             break
-    values = ['Hug_Bot13', 'ForThe1MAn', 'FaVK12dui1rgJw', '12IGnh1EMcmQdDb-A9FJN_gRGuc', 'Hug_Bot13 by /u/Rip2k16']
     return event, values;
 
 def Start():
@@ -37,9 +36,7 @@ def Start():
         if event == "Turn On":
             Bot.Hide()
             break
-    values = ['Hug_Bot13', 'ForThe1MAn', 'FaVK12dui1rgJw', '12IGnh1EMcmQdDb-A9FJN_gRGuc', 'Hug_Bot13 by /u/Rip2k16']
     return event, values;
 
-    #values = ['Hug_Bot13', 'ForThe1MAn', 'FaVK12dui1rgJw', '12IGnh1EMcmQdDb-A9FJN_gRGuc', 'Hug_Bot13 by /u/Rip2k16']
 
 
