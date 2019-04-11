@@ -5,6 +5,7 @@ import time
 def RedditBot():
 
     layout = [
+              [sg.Image(filename="Logo/Logo.png")],
               [sg.Text('Username', size=(15, 1)), sg.InputText('')],
               [sg.Text('Password', size=(15, 1)), sg.InputText('')],
               [sg.Text('Client ID', size=(15, 1)), sg.InputText('')],
