@@ -1,7 +1,5 @@
 import praw
 import re
-import random
-import random
 import time
 import PySimpleGUI as sg
 
@@ -36,6 +34,8 @@ while Account == False:
         [sg.Text("Bot Reply", size=(15, 1)), sg.InputText('')],
         [sg.Submit("Turn On", size=(15, 1)), sg.Exit()]
     ]
+
+
     if event is None or event == 'Exit':
         break
     while Account != None and Account != False:
