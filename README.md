@@ -12,8 +12,8 @@ To improve skills creating GUI's with simple or easy to understand programs behi
 
 ## Youtube+ Downloader
 
-![Youtube Downloader](https://github.com/KarlofKuwait/Gui-Practice/blob/master/Youtube%20Downloader/Youtube%20Downloader.png?raw=true)
-![Youtube Downloader](https://github.com/KarlofKuwait/Gui-Practice/blob/master/Youtube%20Downloader/Youtube%20Downloader%20(2).png?raw=true)
+![Youtube Downloader](https://github.com/KarlofKuwait/Gui-Practice/blob/master/Downloader/PyGUI/Youtube%20Downloader%20(2).png?raw=true)
+![Youtube Downloader](https://github.com/KarlofKuwait/Gui-Practice/blob/master/Downloader/Tkinter/Youtube%20Downloader.png?raw=true)
 
 
 If program doesnt download mp4 and mp3 there might be an issue with not having downloaded [FFmpeg](https://ffmpeg.org/download.html)
