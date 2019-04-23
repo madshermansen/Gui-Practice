@@ -1,5 +1,4 @@
 import PySimpleGUI as sg
-from tkinter import *
 
 def RedditBot():
 
