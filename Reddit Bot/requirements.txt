@@ -1,0 +1,3 @@
+praw
+PySimpleGUI
+Tkinter
