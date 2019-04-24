@@ -1,0 +1,4 @@
+future
+tkinter
+PySimpleGUI
+youtube_dl
