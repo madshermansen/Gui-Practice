@@ -16,8 +16,8 @@ Run PyGUI Downloader.py or Downloader.py
 
 ## How to use
 
-**NOTE:If you dont have it already download https://ffmpeg.zeranoe.com/builds/
-or some of the file types will not be downloaded
+**NOTE:If you dont have it already download [here](https://ffmpeg.zeranoe.com/builds/)
+or some of the file types will not be downloaded**
 ```
 >System Properties >Advanced >Enviroment Variables >Path >Edit >New > Paste the bin path from ffmpeg
 ```
