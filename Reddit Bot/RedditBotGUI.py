@@ -1,7 +1,6 @@
 import PySimpleGUI as sg
 
 def RedditBot():
-
     layout = [
               [sg.Text('Username', size=(15, 1)), sg.InputText('')],
               [sg.Text('Password', size=(15, 1)), sg.InputText('')],
@@ -12,10 +11,8 @@ def RedditBot():
 
     ]
 
-    Login = sg.Window('RedditBot Login').Layout(layout)
-    Login.SetIcon(icon="Logo/Logo.ico")
-
-
+    Login = sg.Window('RedditBot Login', icon='Logo/Logo.ico').Layout(layout)
+    
     while True:
         event, values = Login.Read()
         if event is None or event == 'Exit':
@@ -36,6 +33,3 @@ def Start():
             Bot.Hide()
             break
     return event, values;
-
-
-
