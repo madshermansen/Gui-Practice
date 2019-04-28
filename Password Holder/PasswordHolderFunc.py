@@ -1,15 +1,12 @@
 def add(): #Add Shortcut, Password, and Username to directory
-    global Shortcut
-    global Password
-    global Username
     Shortcut = input("Shortcut: ")
     Username = input("Username: ")
     Password = input("Password: ")
-    Shortcutwrite()
-    Passwordwrite()
-    Usernamewrite()
+    Shortcutwrite(Shortcut)
+    Usernamewrite(Username)
+    Passwordwrite(Password)
 
-def Shortcutwrite(): # Write Shortcut in Shorcut.txt
+def Shortcutwrite(Shortcut): # Write Shortcut in Shorcut.txt
     typeShort = open("Shortcuts.txt", "w")
     Keepdata = [x.strip() for x in open("Shortcuts.txt").readlines()]
     for Info in Keepdata:
@@ -17,18 +14,18 @@ def Shortcutwrite(): # Write Shortcut in Shorcut.txt
     typeShort.write(Shortcut + "\n")
     typeShort.close()
 
-def Passwordwrite(): # Write Password in Passwords.txt
-    typePass = open("Passwords.txt", "w")
-    Keepdata = [x.strip() for x in open("Passwords.txt").readlines()]
-    for Info in Keepdata:
-        typePass.write(str(Info) + "\n")
-    typePass.write(Password + "\n")
-    typePass.close()
-
-def Usernamewrite(): #Write Username in Username.txt
+def Usernamewrite(Username): #Write Username in Username.txt
     typeUser = open("Username.txt", "w")
     Keepdata = [x.strip() for x in open("Username.txt").readlines()]
     for Info in Keepdata:
         typeUser.write(str(Info) + "\n")
     typeUser.write(Username + "\n")
     typeUser.close()
+
+def Passwordwrite(Password): # Write Password in Passwords.txt
+    typePass = open("Passwords.txt", "w")
+    Keepdata = [x.strip() for x in open("Passwords.txt").readlines()]
+    for Info in Keepdata:
+        typePass.write(str(Info) + "\n")
+    typePass.write(Password + "\n")
+    typePass.close()
