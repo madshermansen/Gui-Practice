@@ -1,3 +1,6 @@
 import PasswordHolderFunc
 
-PasswordHolderFunc.add()
+Function = input("What function do you want to use?: ")
+
+if Function == "Add" or Function == "add":
+    PasswordHolderFunc.add()
