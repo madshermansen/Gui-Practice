@@ -1,3 +1,4 @@
+#Add function and corresponding code
 def add(): #Add Shortcut, Password, and Username to directory
     Shortcut = input("Shortcut: ")
     Username = input("Username: ")
@@ -6,7 +7,7 @@ def add(): #Add Shortcut, Password, and Username to directory
     Usernamewrite(Username)
     Passwordwrite(Password)
 
-def Shortcutwrite(Shortcut): # Write Shortcut in Shorcut.txt
+def Shortcutwrite(Shortcut): #Write Shortcut in Shorcut.txt
     typeShort = open("Shortcuts.txt", "w")
     Keepdata = [x.strip() for x in open("Shortcuts.txt").readlines()]
     for Info in Keepdata:
@@ -22,10 +23,16 @@ def Usernamewrite(Username): #Write Username in Username.txt
     typeUser.write(Username + "\n")
     typeUser.close()
 
-def Passwordwrite(Password): # Write Password in Passwords.txt
+def Passwordwrite(Password): #Write Password in Passwords.txt
     typePass = open("Passwords.txt", "w")
     Keepdata = [x.strip() for x in open("Passwords.txt").readlines()]
     for Info in Keepdata:
         typePass.write(str(Info) + "\n")
     typePass.write(Password + "\n")
     typePass.close()
+
+#Remove function and corresponding code
+
+#Find function and correspondding code
+
+#Open function and corresponding code
