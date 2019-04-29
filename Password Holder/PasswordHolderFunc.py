@@ -1,4 +1,5 @@
 #Add function and corresponding code
+
 def add(): #Add Shortcut, Password, and Username to directory
     Shortcut = input("Shortcut: ")
     Username = input("Username: ")
@@ -33,6 +34,32 @@ def Passwordwrite(Password): #Write Password in Passwords.txt
 
 #Remove function and corresponding code
 
+def remove(): #Remove data from directory
+    input("")
+
 #Find function and correspondding code
 
+def find():
+    Shortcut = input("What is the shortcut?: ")
+    if not(Shortcut == ""):
+        return
+    Username = input("What is the username?: ")
+    if not(Username == ""):
+        return
+    Password = input("What is the password?: ")
+    if not(Password == ""):
+        return
+
+def Findshortcut(Shortcut):
+    return
+
+def Findusername(Username):
+    return
+
+def Findpassword(Password):
+    return
+
 #Open function and corresponding code
+
+def open():
+    input("")
