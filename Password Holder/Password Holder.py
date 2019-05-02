@@ -6,15 +6,22 @@ Usernameread = "Username"
 Passwordread = "Password"
 try:
     names = [x.strip() for x in open("Shortcuts.txt").readlines()]
+    names2 = [x.strip() for x in open("Usernames.txt").readlines()]
+    names3 = [x.strip() for x in open("Passwords.txt").readlines()]
+    namelist = []
+    for Info in range(len(names)):
+        namelist.append(names[Info] + ": " + names2[Info] + ": " + names3[Info])
 except:
     names = []
+
+
 
 while True:
     layout = [
         [sg.InputText(Shortcutread, size=(37, 1))],
         [sg.InputText(Usernameread, size=(37, 1))],
         [sg.InputText(Passwordread, size=(37, 1))],
-        [sg.Listbox(values=names, size=(35, 10))],
+        [sg.Listbox(values=namelist, size=(35, 10))],
         [sg.Submit("Add", size=(15, 1)), sg.Submit("Remove", size=(15, 1))],
         [sg.Submit("Find", size=(15, 1)), sg.Submit("Open/Read", size=(15, 1))]
     ]
@@ -40,21 +47,37 @@ while True:
         names = []
     if event == "Find":
         try:
-            names = PasswordHolderFunc.find(values[0], values[1], values[2])
+
+            if values[0] == "" and values[1] == "" and values[2] == "":
+                try:
+                    names = [x.strip() for x in open("Shortcuts.txt").readlines()]
+                    names2 = [x.strip() for x in open("Usernames.txt").readlines()]
+                    names3 = [x.strip() for x in open("Passwords.txt").readlines()]
+                    namelist = []
+                    for Info in range(len(names)):
+                        namelist.append(names[Info] + ": " + names2[Info] + ": " + names3[Info])
+                except:
+                    namelist = []
+            else:
+                namelist = PasswordHolderFunc.find(values[0], values[1], values[2])
         except:
             try:
                 names = [x.strip() for x in open("Shortcuts.txt").readlines()]
+                names2 = [x.strip() for x in open("Usernames.txt").readlines()]
+                names3 = [x.strip() for x in open("Passwords.txt").readlines()]
+                namelist = []
+                for Info in range(len(names)):
+                    namelist.append(names[Info] + ": " + names2[Info] + ": " + names3[Info])
             except:
-                names = []
-    print(names)
-
-
-
-
-#Function = input("What function do you want to use?: ")
-
-#if Function == "Find" or Function == "find":
- #   PasswordHolderFunc.find()
-#elif Function == "Read" or Function == "read":
- #   PasswordHolderFunc.read()
-
+                namelist = []
+    else:
+        try:
+            names = [x.strip() for x in open("Shortcuts.txt").readlines()]
+            names2 = [x.strip() for x in open("Usernames.txt").readlines()]
+            names3 = [x.strip() for x in open("Passwords.txt").readlines()]
+            namelist = []
+            for Info in range(len(names)):
+                namelist.append(names[Info] + ": " + names2[Info] + ": " + names3[Info])
+        except:
+            namelist = []
+    Holder.Close()
