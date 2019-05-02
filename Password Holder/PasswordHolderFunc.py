@@ -1,6 +1,5 @@
 #Add function and corresponding code
 import PySimpleGUI as sg
-import PasswordHolderGUI
 
 def add(Shortcut, Usernames, Password): #Add Shortcut, Password, and Usernames to directory
     if Shortcut == "" or Usernames == "" or Password == "":
@@ -98,42 +97,36 @@ def Remover(Value, Data):
 #Find function and correspondding code
 
 def find(Shortcut, Username, Password):
-    if Shortcut == "" or Username == "" or Password == "":
-        return
+    global namelist
+    namelist = []
+    namelist.append(Shortcut)
+    namelist.append(Username)
+    namelist.append(Password)
+    return Finder()
+
+
+
+def Finder():
     global Keepdata
     global Keepdata2
     global Keepdata3
     Keepdata = [x.strip() for x in open("Shortcuts.txt").readlines()]
     Keepdata2 = [x.strip() for x in open("Usernames.txt").readlines()]
     Keepdata3 = [x.strip() for x in open("Passwords.txt").readlines()]
-    while True:
-        if not(Shortcut == ""):
-            Finder(Shortcut, Keepdata)
-            break
-        if not(Usernames == ""):
-            Finder(Usernames, Keepdata2)
-            break
-        if not(Password == ""):
-            Finder(Password, Keepdata3)
-            break
 
-def Finder(Value, Data):
-    for Info in range(len(Data)):
-        if Value == Data[Info]:
-            return Keepdata
+    Randomlist = []
+    for Info in range(len(Keepdata)):
+        namelistcheck = []
+        namelistcheck.append(Keepdata[Info] + ": " + Keepdata2[Info] + ": " + Keepdata3[Info])
+        for Info2 in range(len(namelistcheck)):
+            namelistcheck = namelistcheck[0].split(": ")
+        if namelistcheck == namelist:
+            Randomlist.append(namelist[0] + ": " + namelist[1] + ": " + namelist[2])
+    return Randomlist
+
 
 #Read function and corresponding code
 
 def read(Shortcut):
-    global Keepdata
-    global Keepdata2
-    global Keepdata3
-    Keepdata = [x.strip() for x in open("Shortcuts.txt").readlines()]
-    Keepdata2 = [x.strip() for x in open("Usernames.txt").readlines()]
-    Keepdata3 = [x.strip() for x in open("Passwords.txt").readlines()]
-    for Info in range(len(Keepdata)):
-        if Shortcut[0] == Keepdata[Info]:
-            Shortcutread = Keepdata[Info]
-            Passwordread = Keepdata2[Info]
-            Usernameread = Keepdata3[Info]
-            return Shortcutread, Usernameread, Passwordread
+    Shortcut = Shortcut[0].split(": ")
+    return Shortcut[0], Shortcut[1], Shortcut[2]
