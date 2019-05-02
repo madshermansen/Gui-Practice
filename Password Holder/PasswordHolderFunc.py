@@ -1,10 +1,11 @@
 #Add function and corresponding code
 import PySimpleGUI as sg
+import PasswordHolderGUI
 
-def add(): #Add Shortcut, Password, and Usernames to directory
-    Shortcut = input("Shortcut: ")
-    Usernames = input("Username: ")
-    Password = input("Password: ")
+def add(Shortcut, Usernames, Password): #Add Shortcut, Password, and Usernames to directory
+    if Shortcut == "" or Usernames == "" or Password == "":
+        print("Please enter values")
+        return
     Shortcutwrite(Shortcut)
     Usernameswrite(Usernames)
     Passwordwrite(Password)
@@ -47,7 +48,11 @@ def Passwordwrite(Password): #Write Password in Passwords.txt
 
 #Remove function and corresponding code
 
-def remover(): #Remove data from directory
+def remover(Shortcut, Usernames, Password, Testfor): #Remove data from directory
+    if Testfor != []:
+        Shortcut = Testfor[0]
+    elif Shortcut == "" or Usernames == "" or Password == "":
+        return
     global Keepdata
     global Keepdata2
     global Keepdata3
@@ -57,22 +62,15 @@ def remover(): #Remove data from directory
     Keepdata2 = [x.strip() for x in open("Usernames.txt").readlines()]
     Keepdata3 = [x.strip() for x in open("Passwords.txt").readlines()]
     while True:
-        Shortcut = input("What is the shortcut?: ")
         if not(Shortcut == ""):
-            print("")
             Remover(Shortcut, Keepdata)
             break
-        Usernames = input("What is the username?: ")
         if not(Usernames == ""):
-            print("")
             Remover(Usernames, Keepdata2)
             break
-        Password = input("What is the password?: ")
         if not(Password == ""):
-            print("")
             Remover(Password, Keepdata3)
             break
-        print("")
 
 def Remover(Value, Data):
     for Info in range(len(Data)):
@@ -99,7 +97,9 @@ def Remover(Value, Data):
 
 #Find function and correspondding code
 
-def find():
+def find(Shortcut, Username, Password):
+    if Shortcut == "" or Username == "" or Password == "":
+        return
     global Keepdata
     global Keepdata2
     global Keepdata3
@@ -107,30 +107,33 @@ def find():
     Keepdata2 = [x.strip() for x in open("Usernames.txt").readlines()]
     Keepdata3 = [x.strip() for x in open("Passwords.txt").readlines()]
     while True:
-        Shortcut = input("What is the shortcut?: ")
         if not(Shortcut == ""):
-            print("")
             Finder(Shortcut, Keepdata)
             break
-        Usernames = input("What is the username?: ")
         if not(Usernames == ""):
-            print("")
             Finder(Usernames, Keepdata2)
             break
-        Password = input("What is the password?: ")
         if not(Password == ""):
-            print("")
             Finder(Password, Keepdata3)
             break
-        print("")
 
 def Finder(Value, Data):
-    print("Shortcut: Username:Password \n")
     for Info in range(len(Data)):
         if Value == Data[Info]:
-            print(Keepdata[Info] + ": " + Keepdata2[Info] + ":" + Keepdata3[Info])
+            return Keepdata
 
 #Read function and corresponding code
 
-def read():
-    print("")
+def read(Shortcut):
+    global Keepdata
+    global Keepdata2
+    global Keepdata3
+    Keepdata = [x.strip() for x in open("Shortcuts.txt").readlines()]
+    Keepdata2 = [x.strip() for x in open("Usernames.txt").readlines()]
+    Keepdata3 = [x.strip() for x in open("Passwords.txt").readlines()]
+    for Info in range(len(Keepdata)):
+        if Shortcut[0] == Keepdata[Info]:
+            Shortcutread = Keepdata[Info]
+            Passwordread = Keepdata2[Info]
+            Usernameread = Keepdata3[Info]
+            return Shortcutread, Usernameread, Passwordread
