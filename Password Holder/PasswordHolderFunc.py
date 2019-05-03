@@ -130,3 +130,35 @@ def Finder():
 def read(Shortcut):
     Shortcut = Shortcut[0].split(": ")
     return Shortcut[0], Shortcut[1], Shortcut[2]
+
+#Set namelist
+def Setnamelist():
+    global namelist
+    try:
+        names = [x.strip() for x in open("Shortcuts.txt").readlines()]
+        names2 = [x.strip() for x in open("Usernames.txt").readlines()]
+        names3 = [x.strip() for x in open("Passwords.txt").readlines()]
+        namelist = []
+        for Info in range(len(names)):
+            namelist.append(names[Info] + ": " + names2[Info] + ": " + names3[Info])
+    except:
+        namelist = []
+    return namelist
+
+def SetHolder(Shortcutread, Usernameread, Passwordread, Positionx, namelist):
+    layout = [
+        [sg.InputText(Shortcutread, size=(37, 1))],
+        [sg.InputText(Usernameread, size=(37, 1))],
+        [sg.InputText(Passwordread, size=(37, 1))],
+        [sg.Listbox(values=namelist, size=(35, 10))],
+        [sg.Submit("Add", size=(15, 1)), sg.Submit("Remove", size=(15, 1))],
+        [sg.Submit("Find", size=(15, 1)), sg.Submit("Open/Read", size=(15, 1))]
+    ]
+    global Holder
+    try:
+        Holder = sg.Window("Password Holder", icon='Logo/Logo.ico', background_color="#555555", button_color=None,
+                           no_titlebar=False, location=(Positionx[0], Positionx[1])).Layout(layout)
+    except:
+        Holder = sg.Window("Password Holder", icon='Logo/Logo.ico', background_color="#555555", button_color=None,
+                           no_titlebar=False).Layout(layout)
+    return Holder
