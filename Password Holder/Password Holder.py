@@ -1,40 +1,47 @@
-import PasswordHolderFunc
-import PySimpleGUI as sg
+import passwordholderfunc
 
 Shortcutread = "Shortcut"
 Usernameread = "Username"
 Passwordread = "Password"
-namelist = PasswordHolderFunc.Setnamelist()
+namelist = passwordholderfunc.Setnamelist()
 
 while True:
     try:
-        Holder = PasswordHolderFunc.SetHolder(Shortcutread, Usernameread, Passwordread, Positionx, namelist)
+        Holder = passwordholderfunc.SetHolder(Shortcutread,
+                                              Usernameread,
+                                              Passwordread,
+                                              Positionx,
+                                              namelist)
     except:
-        Holder = PasswordHolderFunc.SetHolder(Shortcutread, Usernameread, Passwordread, None, namelist)
+        Holder = passwordholderfunc.SetHolder(Shortcutread,
+                                              Usernameread,
+                                              Passwordread,
+                                              None,
+                                              namelist)
     event, values = Holder.Read()
     Shortcutread = ""
     Usernameread = ""
     Passwordread = ""
-    if event == "Close" or event == None:
+    if event == "Exit" or event == None:
         break
     elif event == "Add":
-        PasswordHolderFunc.add(values[0], values[1], values[2])
+        passwordholderfunc.add(values[0], values[1], values[2])
     elif event == "Remove":
-        PasswordHolderFunc.remover(values[0], values[1], values[2], values[3])
+        passwordholderfunc.remover(values[0], values[1], values[2], values[3])
     elif event == "Open/Read":
         try:
-            Shortcutread, Usernameread, Passwordread = PasswordHolderFunc.read(values[3])
+            Shortcutread, Usernameread, Passwordread = passwordholderfunc.read(values[3])
         except:
             Shortcutread, Usernameread, Passwordread = "", "", ""
     if event == "Find":
         try:
             if values[0] == "" and values[1] == "" and values[2] == "":
-                namelist = PasswordHolderFunc.Setnamelist()
+                namelist = passwordholderfunc.Setnamelist()
             else:
-                namelist = PasswordHolderFunc.find(values[0], values[1], values[2])
+                namelist = passwordholderfunc.find(values[0], values[1], values[2])
         except:
-            namelist = PasswordHolderFunc.Setnamelist()
+            namelist = passwordholderfunc.Setnamelist()
     else:
-        namelist = PasswordHolderFunc.Setnamelist()
+        namelist = passwordholderfunc.Setnamelist()
     Positionx = Holder.CurrentLocation()
     Holder.Close()
