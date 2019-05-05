@@ -188,7 +188,9 @@ def Setnamelist():
 
 def SetHolder(Shortcutread, Usernameread, Passwordread, Positionx, namelist):
     layout = [
-        [sg.Text("Password Holder", background_color=("#555555"), font=("Helvetica")), sg.Exit("Reset", button_color=("black", "green")), sg.Exit(button_color=("black", "red"))],
+        [sg.Menu([["Menu", ["About", "Exit", "Properties"]]], tearoff=True)],
+        [sg.Text("", background_color=("#555555"), font=("Helvetica")),
+         sg.Exit("Reset", button_color=("black", "green")), sg.Exit(button_color=("black", "red"))],
         [sg.InputText(Shortcutread,
                       size=(37, 1))],
         [sg.InputText(Usernameread,
@@ -207,14 +209,17 @@ def SetHolder(Shortcutread, Usernameread, Passwordread, Positionx, namelist):
         Holder = sg.Window("Password Holder",
                            background_color="#555555",
                            button_color=None,
-                           no_titlebar=True,
-                           grab_anywhere=True,
+                           no_titlebar=False,
+                           grab_anywhere=False,
                            location=(Positionx[0],
                                      Positionx[1])).Layout(layout)
     except:
         Holder = sg.Window("Password Holder",
                            background_color="#555555",
                            button_color=None,
-                           no_titlebar=True,
-                           grab_anywhere=True,).Layout(layout)
+                           no_titlebar=False,
+                           grab_anywhere=False,).Layout(layout)
     return Holder
+
+def SetAbout():
+    pass
