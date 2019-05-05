@@ -1,47 +1,52 @@
-import passwordholderfunc
+"""
+Name: Password Manager
+Made By: Mads Hermansen
+Github: https://github.com/KarlofKuwait
+Date: 05/05/2019
+"""
+import passwordholderfunc as phf
 
-Shortcutread = "Shortcut"
-Usernameread = "Username"
-Passwordread = "Password"
-namelist = passwordholderfunc.Setnamelist()
+SHORTCUT_READ = "Shortcut"
+USERNAME_READ = "Username"
+PASSWORD_READ = "Password"
+
+NAMELIST = phf.Setnamelist()
 
 while True:
     try:
-        Holder = passwordholderfunc.SetHolder(Shortcutread,
-                                              Usernameread,
-                                              Passwordread,
-                                              Positionx,
-                                              namelist)
-    except:
-        Holder = passwordholderfunc.SetHolder(Shortcutread,
-                                              Usernameread,
-                                              Passwordread,
-                                              None,
-                                              namelist)
-    event, values = Holder.Read()
-    Shortcutread = ""
-    Usernameread = ""
-    Passwordread = ""
-    if event == "Exit" or event == None:
+        HOLDER = phf.SetHolder(SHORTCUT_READ, USERNAME_READ, PASSWORD_READ, POSITION, NAMELIST)
+    except NameError:
+        HOLDER = phf.SetHolder(SHORTCUT_READ, USERNAME_READ, PASSWORD_READ, None, NAMELIST)
+    EVENT, VALUES = HOLDER.Read()
+    SHORTCUT_READ = ""
+    USERNAME_READ = ""
+    PASSWORD_READ = ""
+    VALUES.remove(None)
+    if EVENT == "Exit" or EVENT == None or "Exit" in VALUES:
         break
-    elif event == "Add":
-        passwordholderfunc.add(values[1], values[2], values[3])
-    elif event == "Remove":
-        passwordholderfunc.remover(values[1], values[2], values[3], values[4])
-    elif event == "Open/Read":
+    elif "About" in VALUES:
+        About = phf.SetAbout()
+        About.Read()
+    elif "Save as" in VALUES:
+        phf.Saveas(NAMELIST)
+    elif EVENT == "Add":
+        phf.add(VALUES[3], VALUES[4], VALUES[5])
+    elif EVENT == "Remove":
+        phf.remover(VALUES[3], VALUES[4], VALUES[5], VALUES[6])
+    elif EVENT == "Open/Read":
         try:
-            Shortcutread, Usernameread, Passwordread = passwordholderfunc.read(values[4])
+            SHORTCUT_READ, USERNAME_READ, PASSWORD_READ = phf.read(VALUES[6])
         except:
-            Shortcutread, Usernameread, Passwordread = "", "", ""
-    if event == "Find":
+            SHORTCUT_READ, USERNAME_READ, PASSWORD_READ = "", "", ""
+    if EVENT == "Find":
         try:
-            if values[1] == "" and values[2] == "" and values[3] == "":
-                namelist = passwordholderfunc.Setnamelist()
+            if VALUES[3] == "" and VALUES[4] == "" and VALUES[5] == "":
+                NAMELIST = phf.Setnamelist()
             else:
-                namelist = passwordholderfunc.find(values[1], values[2], values[3])
-        except:
-            namelist = passwordholderfunc.Setnamelist()
+                NAMELIST = phf.find(VALUES[3], VALUES[4], VALUES[5])
+        except NameError:
+            NAMELIST = phf.Setnamelist()
     else:
-        namelist = passwordholderfunc.Setnamelist()
-    Positionx = Holder.CurrentLocation()
-    Holder.Close()
+        NAMELIST = phf.Setnamelist()
+    POSITION = HOLDER.CurrentLocation()
+    HOLDER.Close()
