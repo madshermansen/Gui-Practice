@@ -1,6 +1,25 @@
-# Add function and corresponding code
+"""
+Name: Password Manager
+Made By: Mads Hermansen
+Github: https://github.com/KarlofKuwait
+Date: 05/05/2019
+"""
+from tkinter import filedialog
 import PySimpleGUI as sg
-
+import os
+import errno
+# Make sure the files are there
+filename = ["Userdata/Shortcuts.txt", "Userdata/Usernames.txt", "Userdata/Passwords.txt"]
+for Info in filename:
+    if not os.path.exists(os.path.dirname(Info)):
+        try:
+            os.makedirs(os.path.dirname(Info))
+        except OSError as exc:
+            if exc.errno != errno.EEXIST:
+                raise
+    with open(Info, "w") as f:
+        f.write("")
+# Add function and corresponding code
 def add(Shortcut, Usernames, Password):
     if Shortcut == "" or Usernames == "" or Password == "":
         print("Please enter values")
@@ -11,11 +30,11 @@ def add(Shortcut, Usernames, Password):
 
 def Shortcutwrite(Shortcut):
     try:
-        Keepdata = [x.strip() for x in open("Shortcuts.txt").readlines()]
-        typeShort = open("Shortcuts.txt", "w")
-    except:
-        typeShort = open("Shortcuts.txt", "w")
-        Keepdata = [x.strip() for x in open("Shortcuts.txt").readlines()]
+        Keepdata = [x.strip() for x in open("Userdata/Shortcuts.txt").readlines()]
+        typeShort = open("Userdata/Shortcuts.txt", "w")
+    except NameError:
+        typeShort = open("Userdata/Shortcuts.txt", "w")
+        Keepdata = [x.strip() for x in open("Userdata/Shortcuts.txt").readlines()]
     for Info in Keepdata:
         typeShort.write(str(Info) + "\n")
     typeShort.write(Shortcut + "\n")
@@ -23,11 +42,11 @@ def Shortcutwrite(Shortcut):
 
 def Usernameswrite(Usernames):
     try:
-        Keepdata = [x.strip() for x in open("Usernames.txt").readlines()]
-        typeUser = open("Usernames.txt", "w")
-    except:
-        typeUser = open("Usernames.txt", "w")
-        Keepdata = [x.strip() for x in open("Usernames.txt").readlines()]
+        Keepdata = [x.strip() for x in open("Userdata/Usernames.txt").readlines()]
+        typeUser = open("Userdata/Usernames.txt", "w")
+    except NameError:
+        typeUser = open("Userdata/Usernames.txt", "w")
+        Keepdata = [x.strip() for x in open("Userdata/Usernames.txt").readlines()]
     for Info in Keepdata:
         typeUser.write(str(Info) + "\n")
     typeUser.write(Usernames + "\n")
@@ -35,11 +54,11 @@ def Usernameswrite(Usernames):
 
 def Passwordwrite(Password):
     try:
-        Keepdata = [x.strip() for x in open("Passwords.txt").readlines()]
-        typePass = open("Passwords.txt", "w")
-    except:
-        typePass = open("Passwords.txt", "w")
-        Keepdata = [x.strip() for x in open("Passwords.txt").readlines()]
+        Keepdata = [x.strip() for x in open("Userdata/Passwords.txt").readlines()]
+        typePass = open("Userdata/Passwords.txt", "w")
+    except NameError:
+        typePass = open("Userdata/Passwords.txt", "w")
+        Keepdata = [x.strip() for x in open("Userdata/Passwords.txt").readlines()]
     for Info in Keepdata:
         typePass.write(str(Info) + "\n")
     typePass.write(Password + "\n")
@@ -53,9 +72,9 @@ def remover(Shortcut, Usernames, Password, Testfor):
     global Keepdata3
     global RemoveIndex
     RemoveIndex = []
-    Keepdata = [x.strip() for x in open("Shortcuts.txt").readlines()]
-    Keepdata2 = [x.strip() for x in open("Usernames.txt").readlines()]
-    Keepdata3 = [x.strip() for x in open("Passwords.txt").readlines()]
+    Keepdata = [x.strip() for x in open("Userdata/Shortcuts.txt").readlines()]
+    Keepdata2 = [x.strip() for x in open("Userdata/Usernames.txt").readlines()]
+    Keepdata3 = [x.strip() for x in open("Userdata/Passwords.txt").readlines()]
     if Testfor != []:
         Testfor = Testfor[0].split(": ")
         Shortcut = Testfor[0]
@@ -93,18 +112,18 @@ def RemoverText(Value, Data):
 
 def Remover(RemoveIndex):
     for Info in RemoveIndex:
-        Keepdata.remove(Keepdata[Info])
-        Keepdata2.remove(Keepdata2[Info])
-        Keepdata3.remove(Keepdata3[Info])
-    typeShort = open("Shortcuts.txt", "w")
+        Keepdata.pop(Info)
+        Keepdata2.pop(Info)
+        Keepdata3.pop(Info)
+    typeShort = open("Userdata/Shortcuts.txt", "w")
     for Info in Keepdata:
         typeShort.write(str(Info) + "\n")
     typeShort.close()
-    typeUser = open("Usernames.txt", "w")
+    typeUser = open("Userdata/Usernames.txt", "w")
     for Info in Keepdata2:
         typeUser.write(str(Info) + "\n")
     typeUser.close()
-    typePass = open("Passwords.txt", "w")
+    typePass = open("Userdata/Passwords.txt", "w")
     for Info in Keepdata3:
         typePass.write(str(Info) + "\n")
     typePass.close()
@@ -126,9 +145,9 @@ def Finder():
     global Keepdata
     global Keepdata2
     global Keepdata3
-    Keepdata = [x.strip() for x in open("Shortcuts.txt").readlines()]
-    Keepdata2 = [x.strip() for x in open("Usernames.txt").readlines()]
-    Keepdata3 = [x.strip() for x in open("Passwords.txt").readlines()]
+    Keepdata = [x.strip() for x in open("Userdata/Shortcuts.txt").readlines()]
+    Keepdata2 = [x.strip() for x in open("Userdata/Usernames.txt").readlines()]
+    Keepdata3 = [x.strip() for x in open("Userdata/Passwords.txt").readlines()]
     Randomlist = []
     for Info in range(len(Keepdata)):
         namelistcheck = []
@@ -175,9 +194,9 @@ def read(Shortcut):
 def Setnamelist():
     global namelist
     try:
-        names = [x.strip() for x in open("Shortcuts.txt").readlines()]
-        names2 = [x.strip() for x in open("Usernames.txt").readlines()]
-        names3 = [x.strip() for x in open("Passwords.txt").readlines()]
+        names = [x.strip() for x in open("Userdata/Shortcuts.txt").readlines()]
+        names2 = [x.strip() for x in open("Userdata/Usernames.txt").readlines()]
+        names3 = [x.strip() for x in open("Userdata/Passwords.txt").readlines()]
         namelist = []
         for Info in range(len(names)):
             namelist.append(names[Info] + ": " + names2[Info] + ": " + names3[Info])
@@ -187,39 +206,87 @@ def Setnamelist():
 
 
 def SetHolder(Shortcutread, Usernameread, Passwordread, Positionx, namelist):
-    layout = [
-        [sg.Menu([["Menu", ["About", "Exit", "Properties"]]], tearoff=True)],
-        [sg.Text("", background_color=("#555555"), font=("Helvetica")),
-         sg.Exit("Reset", button_color=("black", "green")), sg.Exit(button_color=("black", "red"))],
+    Holderlayout = [
+        [sg.ButtonMenu("Menu",
+                       ["&Menu", ["&About",  "&Save as", "E&xit"]],
+                       button_color=("white", "#111111")),
+         sg.Stretch(),
+         sg.ButtonMenu("List",
+                       ["&List", ["&Reload"]],
+                       button_color=("white", "#111111")),
+         sg.Stretch()
+         ],
         [sg.InputText(Shortcutread,
-                      size=(37, 1))],
+                      size=(37, 1),
+                      background_color=("#292929"),
+                      text_color=("white"))],
         [sg.InputText(Usernameread,
-                      size=(37, 1))],
+                      size=(37, 1),
+                      background_color=("#292929"),
+                      text_color=("white"))],
         [sg.InputText(Passwordread,
-                      size=(37, 1))],
+                      size=(37, 1),
+                      background_color=("#292929"),
+                      text_color=("white") )],
         [sg.Listbox(values=namelist,
-                    size=(35, 10))],
-        [sg.Submit("Add", size=(15, 1), button_color=("black", "turquoise")),
-         sg.Submit("Remove", size=(15, 1), button_color=("black", "turquoise"))],
-        [sg.Submit("Find", size=(15, 1), button_color=("black", "turquoise")),
-         sg.Submit("Open/Read", size=(15, 1), button_color=("black", "turquoise"))]
+                    size=(35, 10),
+                    background_color=("#292929"),
+                    text_color=("white"))],
+        [sg.Submit("Add", size=(15, 1),
+                   button_color=("white", "#191919")),
+         sg.Submit("Remove", size=(15, 1),
+                   button_color=("white", "#191919"))],
+        [sg.Submit("Find", size=(15, 1),
+                   button_color=("white", "#191919")),
+         sg.Submit("Open/Read", size=(15, 1),
+                   button_color=("white", "#191919"))]
     ]
     global Holder
     try:
         Holder = sg.Window("Password Holder",
-                           background_color="#555555",
+                           background_color="#191919",
                            button_color=None,
                            no_titlebar=False,
                            grab_anywhere=False,
                            location=(Positionx[0],
-                                     Positionx[1])).Layout(layout)
+                                     Positionx[1])).Layout(Holderlayout)
     except:
         Holder = sg.Window("Password Holder",
-                           background_color="#555555",
+                           background_color="#191919",
                            button_color=None,
                            no_titlebar=False,
-                           grab_anywhere=False,).Layout(layout)
+                           grab_anywhere=False,).Layout(Holderlayout)
     return Holder
 
 def SetAbout():
-    pass
+    aboutlayout = [
+        [sg.Text("Name: Password Manager",
+                 background_color="white")],
+        [sg.Text("Made By: Mads Hermansen",
+                 background_color="white")],
+        [sg.Text("Github: https://github.com/KarlofKuwait",
+                 background_color="white",)]
+    ]
+    about = sg.Window("About",
+                           background_color="white",
+                           button_color=None,
+                           no_titlebar=False,
+                           grab_anywhere=True).Layout(aboutlayout)
+
+    return about
+
+def Saveas(NAMELIST):
+    try:
+        filename = filedialog.asksaveasfilename()
+        if not os.path.exists(os.path.dirname(filename)):
+            try:
+                os.makedirs(os.path.dirname(filename))
+            except OSError as exc:
+                if exc.errno != errno.EEXIST:
+                    raise
+        typeSave = open(filename, "w")
+        for Info in NAMELIST:
+            typeSave.write(str(Info) + "\n")
+        typeSave.close()
+    except KeyboardInterrupt:
+        pass
