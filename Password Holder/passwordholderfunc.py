@@ -5,9 +5,9 @@ Github: https://github.com/KarlofKuwait
 Date: 05/05/2019
 """
 from tkinter import filedialog
-import PySimpleGUI as sg
 import os
 import errno
+import PySimpleGUI as sg
 # Make sure the files are there
 filename = ["Userdata/Shortcuts.txt", "Userdata/Usernames.txt", "Userdata/Passwords.txt"]
 for Info in filename:
@@ -17,12 +17,16 @@ for Info in filename:
         except OSError as exc:
             if exc.errno != errno.EEXIST:
                 raise
-    with open(Info, "w") as f:
-        f.write("")
+    try:
+        [x.strip() for x in open(Info).readlines()]
+    except:
+        with open(Info, "w") as f:
+            f.write("")
+
 # Add function and corresponding code
 def add(Shortcut, Usernames, Password):
     if Shortcut == "" or Usernames == "" or Password == "":
-        print("Please enter values")
+        setentervaluepage("Please enter values")
         return
     Shortcutwrite(Shortcut)
     Usernameswrite(Usernames)
@@ -83,7 +87,7 @@ def remover(Shortcut, Usernames, Password, Testfor):
         Removerselect(Shortcut, Username, Password)
         return
     elif Shortcut == "" and Usernames == "" and Password == "":
-        print("Please enter values")
+        setentervaluepage("Please enter values")
         return
     else:
         if Shortcut != "":
@@ -97,9 +101,9 @@ def remover(Shortcut, Usernames, Password, Testfor):
             return
 
 def Removerselect(Shortcut, Username, Password):
-    for Info in range(len(Keepdata)):
-        if Shortcut == Keepdata[Info] and Username == Keepdata2[Info] and Password == Keepdata3[Info]:
-            RemoveIndex.append(Info)
+    for I in range(len(Keepdata)):
+        if Shortcut == Keepdata[I] and Username == Keepdata2[I] and Password == Keepdata3[I]:
+            RemoveIndex.append(I)
     RemoveIndex.reverse()
     Remover(RemoveIndex)
 
@@ -127,7 +131,7 @@ def Remover(RemoveIndex):
     for Info in Keepdata3:
         typePass.write(str(Info) + "\n")
     typePass.close()
-    print("Removed " + str(len(RemoveIndex)) + " stored data lines")
+    setentervaluepage("Removed " + str(len(RemoveIndex)) + " line(s)")
 
 # Find function and correspondding code
 
@@ -208,7 +212,7 @@ def Setnamelist():
 def SetHolder(Shortcutread, Usernameread, Passwordread, Positionx, namelist):
     Holderlayout = [
         [sg.ButtonMenu("Menu",
-                       ["&Menu", ["&About",  "&Save as", "E&xit"]],
+                       ["&Menu", ["&About", "&Save as", "E&xit"]],
                        button_color=("white", "#111111")),
          sg.Stretch(),
          sg.ButtonMenu("List",
@@ -218,20 +222,20 @@ def SetHolder(Shortcutread, Usernameread, Passwordread, Positionx, namelist):
          ],
         [sg.InputText(Shortcutread,
                       size=(37, 1),
-                      background_color=("#292929"),
-                      text_color=("white"))],
+                      background_color="#292929",
+                      text_color="white")],
         [sg.InputText(Usernameread,
                       size=(37, 1),
-                      background_color=("#292929"),
-                      text_color=("white"))],
+                      background_color="#292929",
+                      text_color="white")],
         [sg.InputText(Passwordread,
                       size=(37, 1),
-                      background_color=("#292929"),
-                      text_color=("white") )],
+                      background_color="#292929",
+                      text_color="white")],
         [sg.Listbox(values=namelist,
                     size=(35, 10),
-                    background_color=("#292929"),
-                    text_color=("white"))],
+                    background_color="#292929",
+                    text_color="white")],
         [sg.Submit("Add", size=(15, 1),
                    button_color=("white", "#191919")),
          sg.Submit("Remove", size=(15, 1),
@@ -248,6 +252,7 @@ def SetHolder(Shortcutread, Usernameread, Passwordread, Positionx, namelist):
                            button_color=None,
                            no_titlebar=False,
                            grab_anywhere=False,
+                           icon="Image/Logo.ico",
                            location=(Positionx[0],
                                      Positionx[1])).Layout(Holderlayout)
     except:
@@ -255,6 +260,7 @@ def SetHolder(Shortcutread, Usernameread, Passwordread, Positionx, namelist):
                            background_color="#191919",
                            button_color=None,
                            no_titlebar=False,
+                           icon="Image/Logo.ico",
                            grab_anywhere=False,).Layout(Holderlayout)
     return Holder
 
@@ -268,12 +274,25 @@ def SetAbout():
                  background_color="white",)]
     ]
     about = sg.Window("About",
-                           background_color="white",
-                           button_color=None,
-                           no_titlebar=False,
-                           grab_anywhere=True).Layout(aboutlayout)
-
+                      background_color="white",
+                      button_color=None,
+                      no_titlebar=False,
+                      icon="Image/Logo.ico",
+                      grab_anywhere=True).Layout(aboutlayout)
     return about
+
+def setentervaluepage(Message):
+    Messagelayout = [
+        [sg.Text(Message,
+                 background_color="white")]
+    ]
+    messages = sg.Window("Message",
+                      background_color="white",
+                      button_color=None,
+                      no_titlebar=False,
+                      icon = "Image/Logo.ico",
+                      grab_anywhere=True).Layout(Messagelayout)
+    messages.Read()
 
 def Saveas(NAMELIST):
     try:
@@ -288,5 +307,6 @@ def Saveas(NAMELIST):
         for Info in NAMELIST:
             typeSave.write(str(Info) + "\n")
         typeSave.close()
-    except KeyboardInterrupt:
+    except:
         pass
+
