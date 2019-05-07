@@ -2,10 +2,10 @@
 
 Different projects that have a GUI (Small scale projects)
 Using
-- Electron
+
 - Tkinter
-- PyGUI
-- C#
+- PySimpleGUI
+- PyQt
 
 
 ## Why?
