@@ -1,7 +1,13 @@
+"""
+Name: Reddit Bot
+Made By: Mads Hermansen
+Github: https://github.com/KarlofKuwait
+"""
 import praw
 import re
 import time
 import PySimpleGUI as sg
+
 
 def BotON():
     for comment in subreddit.stream.comments():
@@ -55,9 +61,9 @@ while Account == False:
 
         except:
             RedditBotGUI.layout2 = [
-                      [sg.Text("Logged in as " + str(Account) + "                      Please Enter Data")],
-                      [sg.Text("Subreddit", size=(15, 1)), sg.InputText('')],
-                      [sg.Text("Bot Respond to", size=(15, 1)), sg.InputText('')],
-                      [sg.Text("Bot Reply", size=(15, 1)), sg.InputText('')],
-                      [sg.Submit("Turn On", size=(15, 1)), sg.Exit()]
+                [sg.Text("Logged in as " + str(Account) + "                      Please Enter Data")],
+                [sg.Text("Subreddit", size=(15, 1)), sg.InputText('')],
+                [sg.Text("Bot Respond to", size=(15, 1)), sg.InputText('')],
+                [sg.Text("Bot Reply", size=(15, 1)), sg.InputText('')],
+                [sg.Submit("Turn On", size=(15, 1)), sg.Exit()]
             ]
