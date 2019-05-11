@@ -1,3 +1,8 @@
+"""
+Name: Calculator
+Made By: Mads Hermansen
+Github: https://github.com/KarlofKuwait
+"""
 from tkinter import *
 
 def Buttonclick(Numbers):
