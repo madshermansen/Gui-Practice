@@ -1,3 +1,8 @@
+"""
+Name: Reddit Bot
+Made By: Mads Hermansen
+Github: https://github.com/KarlofKuwait
+"""
 import PySimpleGUI as sg
 
 def RedditBot():
