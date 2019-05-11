@@ -1,3 +1,8 @@
+"""
+Name: Youtube+ Downloader
+Made By: Mads Hermansen
+Github: https://github.com/KarlofKuwait
+"""
 from __future__ import unicode_literals
 import youtube_dl
 import PySimpleGUI as sg
