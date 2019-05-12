@@ -310,3 +310,31 @@ def Saveas(NAMELIST):
     except:
         pass
 
+def Genpass(GENLIST, LENGTH):
+    import os
+    PASSWORD = ""
+    try:
+        for i in range(int(LENGTH)):
+            random = list(os.urandom(1))
+            while not(random[0] <= len(GENLIST)):
+                random = list(os.urandom(1))
+            PASSWORD += GENLIST[random[0]-1]
+        return PASSWORD
+    except TypeError:
+        pass
+
+def Makegenlist(lowercase=False,
+                uppercase=False,
+                digits=False,
+                symbols=False):
+    import string
+    GENLIST = []
+    if lowercase == True:
+        GENLIST += list(string.ascii_lowercase)
+    if uppercase == True:
+        GENLIST += list(string.ascii_uppercase)
+    if digits == True:
+        GENLIST += list(string.digits)
+    if symbols == True:
+        GENLIST += list(string.punctuation)
+    return GENLIST
