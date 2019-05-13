@@ -310,9 +310,13 @@ def Saveas(NAMELIST):
     except:
         pass
 
+import PySimpleGUI as sg
+
 def Genpass(GENLIST, LENGTH):
     import os
     PASSWORD = ""
+    if GENLIST == []:
+        return PASSWORD
     try:
         for i in range(int(LENGTH)):
             random = list(os.urandom(1))
@@ -320,7 +324,7 @@ def Genpass(GENLIST, LENGTH):
                 random = list(os.urandom(1))
             PASSWORD += GENLIST[random[0]-1]
         return PASSWORD
-    except TypeError:
+    except:
         pass
 
 def Makegenlist(lowercase=False,
@@ -338,3 +342,95 @@ def Makegenlist(lowercase=False,
     if symbols == True:
         GENLIST += list(string.punctuation)
     return GENLIST
+
+def MakePassGenGUI():
+    LengthBox = [x for x in range(1, 257)]
+    passgenlayout = [
+        [sg.Text("Password Length: ",
+                 size=(23, 1),
+                 background_color="#191919",
+                 text_color="white"),
+         sg.InputCombo(LengthBox,
+                 background_color="#191919",
+                 text_color="white",
+                 key="Length",
+                 size=(12, 1),)],
+        [sg.Text("Include Symbols: ",
+                 size=(23, 1),
+                 background_color="#191919",
+                 text_color="white"),
+         sg.Checkbox("( e.g. @#$% )",
+                     default=True,
+                     key="Symbols",
+                     background_color="#191919",
+                     text_color="white")],
+        [sg.Text("Include Numbers: ",
+                 size=(23, 1),
+                 background_color="#191919",
+                 text_color="white"),
+         sg.Checkbox("( e.g. 123456 )",
+                     default=True,
+                     key="Digits",
+                     background_color="#191919",
+                     text_color="white")],
+        [sg.Text("Include Lowercase characters: ",
+                 size=(23, 1),
+                 background_color="#191919",
+                 text_color="white"),
+         sg.Checkbox("( e.g. abcdefgh )",
+                     default=True,
+                     key="Lowercase",
+                     background_color="#191919",
+                     text_color="white")],
+        [sg.Text("Include Uppercase characters: ",
+                 size=(23, 1),
+                 background_color="#191919",
+                 text_color="white"),
+         sg.Checkbox("( e.g. ABCDEFGH )",
+                     default=True,
+                     key="Uppercase",
+                     background_color="#191919",
+                     text_color="white")],
+        [sg.Text("Exclude similar characters: ",
+                 size=(23, 1),
+                 background_color="#191919",
+                 text_color="white"),
+         sg.Checkbox("( e.g. i, l, 1, L, o, 0, O )",
+                     default=False,
+                     key="Similar",
+                     background_color="#191919",
+                     text_color="white")],
+        [sg.Text("Save preference:",
+                 size=(23, 1),
+                 background_color="#191919",
+                 text_color="white"),
+         sg.Checkbox("(saves settings for later use)",
+                     default=False,
+                     key="Settings",
+                     background_color="#191919",
+                     text_color="white")],
+        [sg.InputText("", key="_text_",
+                      text_color="LightGreen",
+                      background_color="#292929")],
+        [sg.Exit("Exit",
+                   button_color=("white", "#191919")),
+         sg.Submit("Generate",
+                   button_color=("white", "#191919"))]
+    ]
+    Passgen = sg.Window("Password Generator",
+                           background_color="#191919",
+                           button_color=None,
+                           no_titlebar=False,
+                           icon="Image/Logo.ico",
+                           grab_anywhere=False,).Layout(passgenlayout)
+    while True:
+        event2, values2 = Passgen.Read()
+        if event2 == None or event2 == "Exit":
+            break
+        Length = values2["Length"]
+        symbols = values2["Symbols"]
+        digits = values2["Digits"]
+        uppercase = values2["Uppercase"]
+        lowercase = values2["Lowercase"]
+        Password = Genpass((Makegenlist(lowercase, uppercase, digits, symbols)), Length)
+        Passgen.FindElement("_text_").Update(Password)
