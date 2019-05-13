@@ -8,6 +8,7 @@ from tkinter import filedialog
 import os
 import errno
 import PySimpleGUI as sg
+import string
 # Make sure the files are there
 filename = ["Userdata/Shortcuts.txt", "Userdata/Usernames.txt", "Userdata/Passwords.txt"]
 for Info in filename:
@@ -309,11 +310,8 @@ def Saveas(NAMELIST):
         typeSave.close()
     except:
         pass
-
-import PySimpleGUI as sg
-
+    
 def Genpass(GENLIST, LENGTH):
-    import os
     PASSWORD = ""
     if GENLIST == []:
         return PASSWORD
@@ -330,8 +328,9 @@ def Genpass(GENLIST, LENGTH):
 def Makegenlist(lowercase=False,
                 uppercase=False,
                 digits=False,
-                symbols=False):
-    import string
+                symbols=False,
+                exclude=False,
+                exclude2=False):
     GENLIST = []
     if lowercase == True:
         GENLIST += list(string.ascii_lowercase)
@@ -341,9 +340,36 @@ def Makegenlist(lowercase=False,
         GENLIST += list(string.digits)
     if symbols == True:
         GENLIST += list(string.punctuation)
+    if exclude == True:
+      excludelist = ["i", "l", "1", "L", "o", "0", "O"]
+      for i in excludelist:
+          if i in GENLIST:
+              GENLIST.remove(i)
+    if exclude2 == True:
+      excludelist2 = ["|", '{', '}', '[', ']', '(', ')', '/', "'", '`', '~', ',', ';', ':', '.', '<', '>', '"']
+      for i in excludelist2:
+          if i in GENLIST:
+              GENLIST.remove(i)
     return GENLIST
 
 def MakePassGenGUI():
+    filename = ["Userdata/Settings.txt"]
+    for Info in filename:
+        if not os.path.exists(os.path.dirname(Info)):
+            try:
+                os.makedirs(os.path.dirname(Info))
+            except OSError as exc:
+                if exc.errno != errno.EEXIST:
+                    raise
+        try:
+            Default = [x.strip() for x in open(Info).readlines()]
+            Default[0] = int(Default[0])
+            for i in range(1, 8):
+                Default[i] = eval(Default[i])
+        except:
+            with open(Info, "w") as f:
+                f.write("")
+                Default = [8, True, True, True, True, False, False, False]
     LengthBox = [x for x in range(1, 257)]
     passgenlayout = [
         [sg.Text("Password Length: ",
@@ -351,6 +377,7 @@ def MakePassGenGUI():
                  background_color="#191919",
                  text_color="white"),
          sg.InputCombo(LengthBox,
+                 default_value=Default[0],
                  background_color="#191919",
                  text_color="white",
                  key="Length",
@@ -360,7 +387,7 @@ def MakePassGenGUI():
                  background_color="#191919",
                  text_color="white"),
          sg.Checkbox("( e.g. @#$% )",
-                     default=True,
+                     default=Default[1],
                      key="Symbols",
                      background_color="#191919",
                      text_color="white")],
@@ -369,7 +396,7 @@ def MakePassGenGUI():
                  background_color="#191919",
                  text_color="white"),
          sg.Checkbox("( e.g. 123456 )",
-                     default=True,
+                     default=Default[2],
                      key="Digits",
                      background_color="#191919",
                      text_color="white")],
@@ -378,7 +405,7 @@ def MakePassGenGUI():
                  background_color="#191919",
                  text_color="white"),
          sg.Checkbox("( e.g. abcdefgh )",
-                     default=True,
+                     default=Default[3],
                      key="Lowercase",
                      background_color="#191919",
                      text_color="white")],
@@ -387,7 +414,7 @@ def MakePassGenGUI():
                  background_color="#191919",
                  text_color="white"),
          sg.Checkbox("( e.g. ABCDEFGH )",
-                     default=True,
+                     default=Default[4],
                      key="Uppercase",
                      background_color="#191919",
                      text_color="white")],
@@ -396,8 +423,17 @@ def MakePassGenGUI():
                  background_color="#191919",
                  text_color="white"),
          sg.Checkbox("( e.g. i, l, 1, L, o, 0, O )",
-                     default=False,
+                     default=Default[5],
                      key="Similar",
+                     background_color="#191919",
+                     text_color="white")],
+        [sg.Text("Exclude Ambiguous Characters: ",
+                 size=(23, 1),
+                 background_color="#191919",
+                 text_color="white"),
+         sg.Checkbox("( { } [ ] ( ) / \ ' \" ` ~ , ; : . < > )",
+                     default=Default[6],
+                     key="Similar2",
                      background_color="#191919",
                      text_color="white")],
         [sg.Text("Save preference:",
@@ -405,7 +441,7 @@ def MakePassGenGUI():
                  background_color="#191919",
                  text_color="white"),
          sg.Checkbox("(saves settings for later use)",
-                     default=False,
+                     default=Default[7],
                      key="Settings",
                      background_color="#191919",
                      text_color="white")],
@@ -432,5 +468,16 @@ def MakePassGenGUI():
         digits = values2["Digits"]
         uppercase = values2["Uppercase"]
         lowercase = values2["Lowercase"]
-        Password = Genpass((Makegenlist(lowercase, uppercase, digits, symbols)), Length)
+        exclude = values2["Similar"]
+        exclude2 = values2["Similar2"]
+        Settings = []
+        if values2["Settings"] == True:
+            for i in values2:
+                Settings.append(values2[i])
+            typeSettings = open(filename[0], "w")
+            for i in range(0, 8):
+                typeSettings.write(str(Settings[i]) + "\n")
+            typeSettings.close()
+
+        Password = Genpass((Makegenlist(lowercase, uppercase, digits, symbols, exclude, exclude2)), Length)
         Passgen.FindElement("_text_").Update(Password)
