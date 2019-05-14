@@ -19,12 +19,14 @@ Run program from exe file or from python file
 
 ### Features
 - About
+- Password Generator
 - Save as
 - Add(Adding data to the program)
 - Remove(Removing data)
 - Find
 - Open/Read
 - Reload
+- Reset
 
 ## Youtube+ Downloader
 
