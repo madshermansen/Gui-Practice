@@ -11,7 +11,6 @@ USERNAME_READ = "Username"
 PASSWORD_READ = "Password"
 
 NAMELIST = phf.Setnamelist()
-
 while True:
     try:
         HOLDER = phf.SetHolder(SHORTCUT_READ, USERNAME_READ, PASSWORD_READ, POSITION, NAMELIST)
@@ -29,6 +28,8 @@ while True:
         About.Read()
     elif "Save as" in VALUES:
         phf.Saveas(NAMELIST)
+    elif "Reset" in VALUES:
+        phf.reset()
     elif EVENT == "Add":
         phf.add(VALUES[3], VALUES[4], VALUES[5])
     elif EVENT == "Remove":
@@ -38,6 +39,8 @@ while True:
             SHORTCUT_READ, USERNAME_READ, PASSWORD_READ = phf.read(VALUES[6])
         except:
             SHORTCUT_READ, USERNAME_READ, PASSWORD_READ = "", "", ""
+    elif "Password Generator" in VALUES:
+        phf.MakePassGenGUI()
     if EVENT == "Find":
         try:
             if VALUES[3] == "" and VALUES[4] == "" and VALUES[5] == "":
