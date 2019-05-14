@@ -42,6 +42,9 @@ After selecting a line of data it puts it into the fillable fields making it eas
 - About
 
 After navigating to menu and clicking "About" opens a small gui containing information about the program
+- Password Generator
+
+Opens another program, The program that is opened is a Password Generator with options
 - Save as
 
 After navigating to menu and clicking save as a filedialog appears, the file selected or the file name will be 
@@ -49,3 +52,7 @@ created or written over containing all the information on one file
 - Reload
 
 Reloads the list showing any data that failed to load
+- Reset
+
+Resets all the information in the list(Does not reset Password Generator Settings)
+
