@@ -24,6 +24,32 @@ for Info in filename:
         with open(Info, "w") as f:
             f.write("")
 
+def reset():
+    Areyousurelayout = [
+        [sg.Text("Are you sure you want to reset all the data?",
+                 background_color="white")],
+        [sg.Button("Yes"),
+         sg.Button("No")],
+    ]
+    Areyousure = sg.Window("Confirmation",
+                      background_color="white",
+                      button_color=None,
+                      no_titlebar=False,
+                      icon="Image/Logo.ico",
+                      grab_anywhere=True).Layout(Areyousurelayout)
+    event, values = Areyousure.Read()
+    if event == "Yes":
+        try:
+            filename = ["Userdata/Shortcuts.txt", "Userdata/Usernames.txt", "Userdata/Passwords.txt"]
+            for Info in filename:
+                with open(Info, "w") as f:
+                    f.write("")
+        except:
+            pass
+    else:
+        pass
+    Areyousure.Close()
+
 # Add function and corresponding code
 def add(Shortcut, Usernames, Password):
     if Shortcut == "" or Usernames == "" or Password == "":
@@ -213,11 +239,11 @@ def Setnamelist():
 def SetHolder(Shortcutread, Usernameread, Passwordread, Positionx, namelist):
     Holderlayout = [
         [sg.ButtonMenu("Menu",
-                       ["&Menu", ["&About", "&Save as", "E&xit"]],
+                       ["&Menu", ["&About", "&Password Generator", "&Save as", "E&xit"]],
                        button_color=("white", "#111111")),
          sg.Stretch(),
          sg.ButtonMenu("List",
-                       ["&List", ["&Reload"]],
+                       ["&List", ["&Reset", "&Reload"]],
                        button_color=("white", "#111111")),
          sg.Stretch()
          ],
@@ -310,7 +336,7 @@ def Saveas(NAMELIST):
         typeSave.close()
     except:
         pass
-    
+
 def Genpass(GENLIST, LENGTH):
     PASSWORD = ""
     if GENLIST == []:
