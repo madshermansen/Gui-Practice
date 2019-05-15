@@ -9,6 +9,7 @@ import os
 import errno
 import PySimpleGUI as sg
 import string
+
 # Make sure the files are there
 filename = ["Userdata/Shortcuts.txt", "Userdata/Usernames.txt", "Userdata/Passwords.txt"]
 for Info in filename:
