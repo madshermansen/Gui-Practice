@@ -250,19 +250,23 @@ def SetHolder(Shortcutread, Usernameread, Passwordread, Positionx, namelist):
         [sg.InputText(Shortcutread,
                       size=(37, 1),
                       background_color="#292929",
-                      text_color="white")],
+                      text_color="white",
+                      key="Shortcutkey")],
         [sg.InputText(Usernameread,
                       size=(37, 1),
                       background_color="#292929",
-                      text_color="white")],
+                      text_color="white",
+                      key="Usernamekey")],
         [sg.InputText(Passwordread,
                       size=(37, 1),
                       background_color="#292929",
-                      text_color="white")],
+                      text_color="white",
+                      key="Passwordkey")],
         [sg.Listbox(values=namelist,
                     size=(35, 10),
                     background_color="#292929",
-                    text_color="white")],
+                    text_color="white",
+                    key="Listboxkey")],
         [sg.Submit("Add", size=(15, 1),
                    button_color=("white", "#191919")),
          sg.Submit("Remove", size=(15, 1),
@@ -310,6 +314,9 @@ def SetAbout():
 
 def setentervaluepage(Message):
     Messagelayout = [
+        [sg.Checkbox("Do you want this message?",
+                 default=True,
+                 background_color="white")],
         [sg.Text(Message,
                  background_color="white")]
     ]
@@ -320,6 +327,7 @@ def setentervaluepage(Message):
                       icon = "Image/Logo.ico",
                       grab_anywhere=True).Layout(Messagelayout)
     messages.Read()
+
 
 def Saveas(NAMELIST):
     try:
