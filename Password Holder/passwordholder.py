@@ -5,51 +5,53 @@ Github: https://github.com/KarlofKuwait
 Date: 05/05/2019
 """
 import passwordholderfunc as phf
+def set_default():
+    global HOLDER
+    HOLDER.FindElement("Shortcutkey").Update(SHORTCUT_READ)
+    HOLDER.FindElement("Usernamekey").Update(USERNAME_READ)
+    HOLDER.FindElement("Passwordkey").Update(PASSWORD_READ)
+    HOLDER.FindElement("Listboxkey").Update(NAMELIST)
 
-SHORTCUT_READ = "Shortcut"
-USERNAME_READ = "Username"
-PASSWORD_READ = "Password"
-
-NAMELIST = phf.Setnamelist()
-while True:
-    try:
-        HOLDER = phf.SetHolder(SHORTCUT_READ, USERNAME_READ, PASSWORD_READ, POSITION, NAMELIST)
-    except NameError:
-        HOLDER = phf.SetHolder(SHORTCUT_READ, USERNAME_READ, PASSWORD_READ, None, NAMELIST)
-    EVENT, VALUES = HOLDER.Read()
-    SHORTCUT_READ = ""
-    USERNAME_READ = ""
-    PASSWORD_READ = ""
-    VALUES.remove(None)
-    if EVENT == "Exit" or EVENT == None or "Exit" in VALUES:
-        break
-    elif "About" in VALUES:
-        About = phf.SetAbout()
-        About.Read()
-    elif "Save as" in VALUES:
-        phf.Saveas(NAMELIST)
-    elif "Reset" in VALUES:
-        phf.reset()
-    elif EVENT == "Add":
-        phf.add(VALUES[3], VALUES[4], VALUES[5])
-    elif EVENT == "Remove":
-        phf.remover(VALUES[3], VALUES[4], VALUES[5], VALUES[6])
-    elif EVENT == "Open/Read":
-        try:
-            SHORTCUT_READ, USERNAME_READ, PASSWORD_READ = phf.read(VALUES[6])
-        except:
-            SHORTCUT_READ, USERNAME_READ, PASSWORD_READ = "", "", ""
-    elif "Password Generator" in VALUES:
-        phf.MakePassGenGUI()
-    if EVENT == "Find":
-        try:
-            if VALUES[3] == "" and VALUES[4] == "" and VALUES[5] == "":
-                NAMELIST = phf.Setnamelist()
-            else:
-                NAMELIST = phf.find(VALUES[3], VALUES[4], VALUES[5])
-        except NameError:
+if __name__ == "__main__":
+    SHORTCUT_READ = "Shortcut"
+    USERNAME_READ = "Username"
+    PASSWORD_READ = "Password"
+    NAMELIST = phf.Setnamelist()
+    HOLDER = phf.SetHolder(SHORTCUT_READ, USERNAME_READ, PASSWORD_READ, None, NAMELIST)
+    while True:
+        EVENT, VALUES = HOLDER.Read()
+        SHORTCUT_READ = ""
+        USERNAME_READ = ""
+        PASSWORD_READ = ""
+        if EVENT == "Exit" or EVENT == None or VALUES[0] == "Exit":
+            break
+        elif EVENT == "Add":
+            phf.add(VALUES["Shortcutkey"], VALUES["Usernamekey"], VALUES["Passwordkey"])
             NAMELIST = phf.Setnamelist()
-    else:
-        NAMELIST = phf.Setnamelist()
-    POSITION = HOLDER.CurrentLocation()
-    HOLDER.Close()
+        elif EVENT == "Remove":
+            phf.remover(VALUES["Shortcutkey"], VALUES["Usernamekey"], VALUES["Passwordkey"], VALUES["Listboxkey"])
+            NAMELIST = phf.Setnamelist()
+        elif VALUES[0] == "About":
+            About = phf.SetAbout()
+        elif VALUES[2] == "Reset":
+            phf.reset()
+            NAMELIST = phf.Setnamelist()
+        elif EVENT == "Open/Read":
+            try:
+                SHORTCUT_READ, USERNAME_READ, PASSWORD_READ = phf.read(VALUES["Listboxkey"])
+            except:
+                SHORTCUT_READ, USERNAME_READ, PASSWORD_READ = "", "", ""
+        elif VALUES[0] == "Password Generator":
+            phf.MakePassGenGUI()
+        elif VALUES[0] == "Save as":
+            phf.Saveas(NAMELIST)
+        elif EVENT == "Find":
+            try:
+                if VALUES["Shortcutkey"] == "" and VALUES["Usernamekey"] == "" and VALUES["Passwordkey"] == "":
+                    NAMELIST = phf.Setnamelist()
+                else:
+                    NAMELIST = phf.find(VALUES["Shortcutkey"], VALUES["Usernamekey"], VALUES["Passwordkey"])
+            except NameError:
+                NAMELIST = phf.Setnamelist()
+        set_default()
+
