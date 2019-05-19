@@ -4,6 +4,7 @@ Made By: Mads Hermansen
 Github: https://github.com/KarlofKuwait
 Date: 05/05/2019
 """
+
 import passwordholderfunc as phf
 def set_default():
     global HOLDER
@@ -54,4 +55,3 @@ if __name__ == "__main__":
             except NameError:
                 NAMELIST = phf.Setnamelist()
         set_default()
-
