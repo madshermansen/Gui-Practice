@@ -350,6 +350,8 @@ def Genpass(GENLIST, LENGTH):
     if GENLIST == []:
         return PASSWORD
     try:
+        if LENGTH > 25000:
+            return "Overload; Too large integer"
         for i in range(int(LENGTH)):
             random = list(os.urandom(1))
             while not(random[0] <= len(GENLIST)):
