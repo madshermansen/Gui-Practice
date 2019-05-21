@@ -42,7 +42,8 @@ def reset():
                       button_color=None,
                       no_titlebar=False,
                       icon="Image/Logo.ico",
-                      grab_anywhere=True).Layout(Areyousurelayout)
+                      grab_anywhere=True,
+                      keep_on_top=True).Layout(Areyousurelayout)
     event, values = Areyousure.Read()
     if event == "Yes":
         try:
@@ -242,7 +243,7 @@ def Setnamelist():
     return namelist
 
 
-def SetHolder(Shortcutread, Usernameread, Passwordread, Positionx, namelist):
+def SetHolder(Shortcutread, Usernameread, Passwordread, namelist):
     Holderlayout = [
         [sg.ButtonMenu("Menu",
                        ["&Menu", ["&About", "&Password Generator", "&Save as", "E&xit"]],
@@ -283,22 +284,12 @@ def SetHolder(Shortcutread, Usernameread, Passwordread, Positionx, namelist):
                    button_color=("white", "#191919"))]
     ]
     global Holder
-    try:
-        Holder = sg.Window("Password Holder",
-                           background_color="#191919",
-                           button_color=None,
-                           no_titlebar=False,
-                           grab_anywhere=False,
-                           icon="Image/Logo.ico",
-                           location=(Positionx[0],
-                                     Positionx[1])).Layout(Holderlayout)
-    except:
-        Holder = sg.Window("Password Holder",
-                           background_color="#191919",
-                           button_color=None,
-                           no_titlebar=False,
-                           icon="Image/Logo.ico",
-                           grab_anywhere=False,).Layout(Holderlayout)
+    Holder = sg.Window("Password Holder",
+                       background_color="#191919",
+                       button_color=None,
+                       no_titlebar=False,
+                       icon="Image/Logo.ico",
+                       grab_anywhere=False, ).Layout(Holderlayout)
     return Holder
 
 def SetAbout():
@@ -318,7 +309,8 @@ def SetAbout():
                       button_color=None,
                       no_titlebar=False,
                       icon="Image/Logo.ico",
-                      grab_anywhere=True).Layout(aboutlayout)
+                      grab_anywhere=True,
+                      keep_on_top=True).Layout(aboutlayout)
     return about
 
 def setentervaluepage(Message):
@@ -339,7 +331,8 @@ def setentervaluepage(Message):
                       button_color=None,
                       no_titlebar=False,
                       icon = "Image/Logo.ico",
-                      grab_anywhere=True).Layout(Messagelayout)
+                      grab_anywhere=True,
+                      keep_on_top=True).Layout(Messagelayout)
     if Messages == True or Messages == [True] or Messages == [None]:
         event3, Messages = messages.Read()
         if event3 == "Exit" or event3 == None:
@@ -511,7 +504,8 @@ def MakePassGenGUI():
                            button_color=None,
                            no_titlebar=False,
                            icon="Image/Logo.ico",
-                           grab_anywhere=False,).Layout(passgenlayout)
+                           grab_anywhere=False,
+                           keep_on_top=True).Layout(passgenlayout)
     while True:
         event2, values2 = Passgen.Read()
         if event2 == None or event2 == "Exit":
