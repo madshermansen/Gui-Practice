@@ -29,20 +29,24 @@ if __name__ == "__main__":
         elif EVENT == "Add":
             phf.add(VALUES["Shortcutkey"], VALUES["Usernamekey"], VALUES["Passwordkey"])
             NAMELIST = phf.Setnamelist()
+            set_default()
         elif EVENT == "Remove":
             phf.remover(VALUES["Shortcutkey"], VALUES["Usernamekey"], VALUES["Passwordkey"], VALUES["Listboxkey"])
             NAMELIST = phf.Setnamelist()
+            set_default()
         elif VALUES[0] == "About":
             About = phf.SetAbout()
             About.Read()
         elif VALUES[2] == "Reset":
             phf.reset()
             NAMELIST = phf.Setnamelist()
+            set_default()
         elif EVENT == "Open/Read":
             try:
                 SHORTCUT_READ, USERNAME_READ, PASSWORD_READ = phf.read(VALUES["Listboxkey"])
             except:
                 SHORTCUT_READ, USERNAME_READ, PASSWORD_READ = "", "", ""
+            set_default()
         elif VALUES[0] == "Password Generator":
             phf.MakePassGenGUI()
         elif VALUES[0] == "Save as":
@@ -55,4 +59,4 @@ if __name__ == "__main__":
                     NAMELIST = phf.find(VALUES["Shortcutkey"], VALUES["Usernamekey"], VALUES["Passwordkey"])
             except NameError:
                 NAMELIST = phf.Setnamelist()
-        set_default()
+            set_default()
