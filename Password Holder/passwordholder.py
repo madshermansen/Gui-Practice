@@ -18,7 +18,7 @@ if __name__ == "__main__":
     USERNAME_READ = "Username"
     PASSWORD_READ = "Password"
     NAMELIST = phf.Setnamelist()
-    HOLDER = phf.SetHolder(SHORTCUT_READ, USERNAME_READ, PASSWORD_READ, None, NAMELIST)
+    HOLDER = phf.SetHolder(SHORTCUT_READ, USERNAME_READ, PASSWORD_READ, NAMELIST)
     while True:
         EVENT, VALUES = HOLDER.Read()
         SHORTCUT_READ = ""
