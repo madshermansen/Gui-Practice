@@ -313,20 +313,25 @@ def SetAbout():
     return about
 
 def setentervaluepage(Message):
+    global Messages
     Messagelayout = [
         [sg.Checkbox("Do you want this message?",
                  default=True,
                  background_color="white")],
         [sg.Text(Message,
-                 background_color="white")]
+                 background_color="white")],
+        [sg.Exit("Exit")]
     ]
     messages = sg.Window("Message",
                       background_color="white",
                       button_color=None,
                       no_titlebar=False,
                       icon = "Image/Logo.ico",
-                      grab_anywhere=True).Layout(Messagelayout)
-    messages.Read()
+                      grab_anywhere=True,).Layout(Messagelayout)
+    if Messages == True or Messages == [True] or Messages == [None]:
+        event3, Messages = messages.Read()
+        if event3 == "Exit" or event3 == None:
+            messages.Close()
 
 
 def Saveas(NAMELIST):
@@ -350,7 +355,7 @@ def Genpass(GENLIST, LENGTH):
     if GENLIST == []:
         return PASSWORD
     try:
-        if LENGTH > 25000:
+        if int(LENGTH) > 25000:
             return "Overload; Too large integer"
         for i in range(int(LENGTH)):
             random = list(os.urandom(1))
