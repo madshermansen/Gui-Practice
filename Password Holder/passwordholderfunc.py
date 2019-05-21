@@ -9,7 +9,10 @@ import os
 import errno
 import PySimpleGUI as sg
 import string
-# Make sure the files are there
+# Variables
+Messages = True
+Password_Overflow = 15000
+# EndVariables
 filename = ["Userdata/Shortcuts.txt", "Userdata/Usernames.txt", "Userdata/Passwords.txt"]
 for Info in filename:
     if not os.path.exists(os.path.dirname(Info)):
@@ -27,12 +30,15 @@ for Info in filename:
 def reset():
     Areyousurelayout = [
         [sg.Text("Are you sure you want to reset all the data?",
-                 background_color="white")],
-        [sg.Button("Yes"),
-         sg.Button("No")],
+                 background_color="#191919",
+                 text_color="white")],
+        [sg.Button("Yes",
+                   button_color=("white", "#191919")),
+         sg.Button("No",
+                   button_color=("white", "#191919"))],
     ]
     Areyousure = sg.Window("Confirmation",
-                      background_color="white",
+                      background_color="#191919",
                       button_color=None,
                       no_titlebar=False,
                       icon="Image/Logo.ico",
@@ -298,14 +304,17 @@ def SetHolder(Shortcutread, Usernameread, Passwordread, Positionx, namelist):
 def SetAbout():
     aboutlayout = [
         [sg.Text("Name: Password Manager",
-                 background_color="white")],
+                 background_color="#191919",
+                 text_color="white")],
         [sg.Text("Made By: Mads Hermansen",
-                 background_color="white")],
+                 background_color="#191919",
+                 text_color="white")],
         [sg.Text("Github: https://github.com/KarlofKuwait",
-                 background_color="white",)]
+                 background_color="#191919",
+                 text_color="white")]
     ]
     about = sg.Window("About",
-                      background_color="white",
+                      background_color="#191919",
                       button_color=None,
                       no_titlebar=False,
                       icon="Image/Logo.ico",
@@ -317,17 +326,20 @@ def setentervaluepage(Message):
     Messagelayout = [
         [sg.Checkbox("Do you want this message?",
                  default=True,
-                 background_color="white")],
+                 background_color="#191919",
+                 text_color="white")],
         [sg.Text(Message,
-                 background_color="white")],
-        [sg.Exit("Exit")]
+                 background_color="#191919",
+                 text_color="white")],
+        [sg.Exit("Exit",
+                 button_color=("white", "#191919"))]
     ]
-    messages = sg.Window("Message",
-                      background_color="white",
+    messages = sg.Window(Message,
+                      background_color="#191919",
                       button_color=None,
                       no_titlebar=False,
                       icon = "Image/Logo.ico",
-                      grab_anywhere=True,).Layout(Messagelayout)
+                      grab_anywhere=True).Layout(Messagelayout)
     if Messages == True or Messages == [True] or Messages == [None]:
         event3, Messages = messages.Read()
         if event3 == "Exit" or event3 == None:
@@ -355,7 +367,7 @@ def Genpass(GENLIST, LENGTH):
     if GENLIST == []:
         return PASSWORD
     try:
-        if int(LENGTH) > 25000:
+        if int(LENGTH) > Password_Overflow:
             return "Overload; Too large integer"
         for i in range(int(LENGTH)):
             random = list(os.urandom(1))
