@@ -34,6 +34,7 @@ if __name__ == "__main__":
             NAMELIST = phf.Setnamelist()
         elif VALUES[0] == "About":
             About = phf.SetAbout()
+            About.Read()
         elif VALUES[2] == "Reset":
             phf.reset()
             NAMELIST = phf.Setnamelist()
