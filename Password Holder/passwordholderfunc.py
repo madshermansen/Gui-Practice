@@ -7,8 +7,8 @@ Date: 05/05/2019
 from tkinter import filedialog
 import os
 import errno
-import PySimpleGUI as sg
 import string
+import PySimpleGUI as sg
 # Variables
 Messages = True
 Password_Overflow = 15000
@@ -38,16 +38,18 @@ def reset():
                    button_color=("white", "#191919"))],
     ]
     Areyousure = sg.Window("Confirmation",
-                      background_color="#191919",
-                      button_color=None,
-                      no_titlebar=False,
-                      icon="Image/Logo.ico",
-                      grab_anywhere=True,
-                      keep_on_top=True).Layout(Areyousurelayout)
+                           background_color="#191919",
+                           button_color=None,
+                           no_titlebar=False,
+                           icon="Image/Logo.ico",
+                           grab_anywhere=True,
+                           keep_on_top=True).Layout(Areyousurelayout)
     event, values = Areyousure.Read()
     if event == "Yes":
         try:
-            filename = ["Userdata/Shortcuts.txt", "Userdata/Usernames.txt", "Userdata/Passwords.txt"]
+            filename = ["Userdata/Shortcuts.txt",
+                        "Userdata/Usernames.txt",
+                        "Userdata/Passwords.txt"]
             for Info in filename:
                 with open(Info, "w") as f:
                     f.write("")
@@ -120,7 +122,7 @@ def remover(Shortcut, Usernames, Password, Testfor):
         Password = Testfor[2]
         Removerselect(Shortcut, Username, Password)
         return
-    elif Shortcut == "" and Usernames == "" and Password == "":
+    if Shortcut == "" and Usernames == "" and Password == "":
         setentervaluepage("Please enter values")
         return
     else:
@@ -190,8 +192,7 @@ def Finder():
     for Info in range(len(Keepdata)):
         namelistcheck = []
         namelistcheck.append(Keepdata[Info] + ": " + Keepdata2[Info] + ": " + Keepdata3[Info])
-        for Info2 in range(len(namelistcheck)):
-            namelistcheck = namelistcheck[0].split(": ")
+        namelistcheck = namelistcheck[0].split(": ")
         if namelistcheck == namelist:
             Randomlist.append(namelist[0] + ": " + namelist[1] + ": " + namelist[2])
     if Randomlist == []:
@@ -317,9 +318,9 @@ def setentervaluepage(Message):
     global Messages
     Messagelayout = [
         [sg.Checkbox("Do you want this message?",
-                 default=True,
-                 background_color="#191919",
-                 text_color="white")],
+                     default=True,
+                     background_color="#191919",
+                     text_color="white")],
         [sg.Text(Message,
                  background_color="#191919",
                  text_color="white")],
@@ -327,12 +328,12 @@ def setentervaluepage(Message):
                  button_color=("white", "#191919"))]
     ]
     messages = sg.Window(Message,
-                      background_color="#191919",
-                      button_color=None,
-                      no_titlebar=False,
-                      icon = "Image/Logo.ico",
-                      grab_anywhere=True,
-                      keep_on_top=True).Layout(Messagelayout)
+                         background_color="#191919",
+                         button_color=None,
+                         no_titlebar=False,
+                         icon="Image/Logo.ico",
+                         grab_anywhere=True,
+                         keep_on_top=True).Layout(Messagelayout)
     if Messages == True or Messages == [True] or Messages == [None]:
         event3, Messages = messages.Read()
         if event3 == "Exit" or event3 == None:
@@ -364,7 +365,7 @@ def Genpass(GENLIST, LENGTH):
             return "Overload; Too large integer"
         for i in range(int(LENGTH)):
             random = list(os.urandom(1))
-            while not(random[0] <= len(GENLIST)):
+            while random[0] > len(GENLIST):
                 random = list(os.urandom(1))
             PASSWORD += GENLIST[random[0]-1]
         return PASSWORD
@@ -387,15 +388,26 @@ def Makegenlist(lowercase=False,
     if symbols == True:
         GENLIST += list(string.punctuation)
     if exclude == True:
-      excludelist = ["i", "l", "1", "L", "o", "0", "O"]
-      for i in excludelist:
-          if i in GENLIST:
-              GENLIST.remove(i)
+        excludelist = ["i", "l",
+                       "1", "L",
+                       "o", "0",
+                       "O"]
+        for i in excludelist:
+            if i in GENLIST:
+                GENLIST.remove(i)
     if exclude2 == True:
-      excludelist2 = ["|", '{', '}', '[', ']', '(', ')', '/', "'", '`', '~', ',', ';', ':', '.', '<', '>', '"']
-      for i in excludelist2:
-          if i in GENLIST:
-              GENLIST.remove(i)
+        excludelist2 = ["|", '{',
+                        '}', '[',
+                        ']', '(',
+                        ')', '/',
+                        "'", '`',
+                        '~', ',',
+                        ';', ':',
+                        '.', '<',
+                        '>', '"']
+        for i in excludelist2:
+            if i in GENLIST:
+                GENLIST.remove(i)
     return GENLIST
 
 def MakePassGenGUI():
@@ -423,11 +435,11 @@ def MakePassGenGUI():
                  background_color="#191919",
                  text_color="white"),
          sg.InputCombo(LengthBox,
-                 default_value=Default[0],
-                 background_color="#191919",
-                 text_color="white",
-                 key="Length",
-                 size=(12, 1),)],
+                       default_value=Default[0],
+                       background_color="#191919",
+                       text_color="white",
+                       key="Length",
+                       size=(12, 1),)],
         [sg.Text("Include Symbols: ",
                  size=(23, 1),
                  background_color="#191919",
@@ -495,17 +507,17 @@ def MakePassGenGUI():
                       text_color="LightGreen",
                       background_color="#292929")],
         [sg.Exit("Exit",
-                   button_color=("white", "#191919")),
+                 button_color=("white", "#191919")),
          sg.Submit("Generate",
                    button_color=("white", "#191919"))]
     ]
     Passgen = sg.Window("Password Generator",
-                           background_color="#191919",
-                           button_color=None,
-                           no_titlebar=False,
-                           icon="Image/Logo.ico",
-                           grab_anywhere=False,
-                           keep_on_top=True).Layout(passgenlayout)
+                        background_color="#191919",
+                        button_color=None,
+                        no_titlebar=False,
+                        icon="Image/Logo.ico",
+                        grab_anywhere=False,
+                        keep_on_top=True).Layout(passgenlayout)
     while True:
         event2, values2 = Passgen.Read()
         if event2 == None or event2 == "Exit":
@@ -526,5 +538,10 @@ def MakePassGenGUI():
                 typeSettings.write(str(Settings[i]) + "\n")
             typeSettings.close()
 
-        Password = Genpass((Makegenlist(lowercase, uppercase, digits, symbols, exclude, exclude2)), Length)
+        Password = Genpass((Makegenlist(lowercase,
+                                        uppercase,
+                                        digits,
+                                        symbols,
+                                        exclude,
+                                        exclude2)), Length)
         Passgen.FindElement("_text_").Update(Password)
