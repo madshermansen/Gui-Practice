@@ -24,7 +24,7 @@ if __name__ == "__main__":
         SHORTCUT_READ = ""
         USERNAME_READ = ""
         PASSWORD_READ = ""
-        if EVENT == "Exit" or EVENT == None or VALUES[0] == "Exit":
+        if EVENT == "Exit" or VALUES[0] == "Exit" or EVENT == None:
             break
         elif EVENT == "Add":
             phf.add(VALUES["Shortcutkey"], VALUES["Usernamekey"], VALUES["Passwordkey"])
@@ -37,6 +37,9 @@ if __name__ == "__main__":
         elif VALUES[0] == "About":
             About = phf.SetAbout()
             About.Read()
+        elif VALUES[2] == "Reload":
+            NAMELIST = phf.Setnamelist()
+            set_default()
         elif VALUES[2] == "Reset":
             phf.reset()
             NAMELIST = phf.Setnamelist()
