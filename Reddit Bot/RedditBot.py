@@ -3,11 +3,11 @@ Name: Reddit Bot
 Made By: Mads Hermansen
 Github: https://github.com/KarlofKuwait
 """
-import praw
-import re
 import time
+import re
 import PySimpleGUI as sg
-
+import RedditBotGUI
+import praw
 
 def BotON():
     for comment in subreddit.stream.comments():
@@ -28,7 +28,6 @@ def CheckAccount():
     except:
         return False
 
-import RedditBotGUI
 Account = False
 while Account == False:
     event, values = RedditBotGUI.RedditBot()
